@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.custom-select {
+  appearance: none;
+  background-color: transparent;
+  padding: 0.25rem 1.5rem 0.25rem 0.5rem;
+  background-image: url("/icons/arrow-down.svg");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 12px 8px;
+}
