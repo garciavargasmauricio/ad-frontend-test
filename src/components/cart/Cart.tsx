@@ -1,6 +1,6 @@
-// src/components/CartPageContent.tsx
 "use client";
 
+import React from "react"; // For testing purposes
 import BackToCatalog from "@/components/common/BackToCatalog";
 import { useCartContext } from "@/context/CartContext";
 import { Game } from "@/utils/endpoint";
@@ -22,25 +22,54 @@ export default function Cart({ games }: Props) {
   );
 
   return (
-    <section className="px-4 py-6 max-w-[1200px] mx-auto">
+    <section
+      className="px-4 py-6 max-w-[1200px] mx-auto"
+      aria-labelledby="cart-heading"
+      data-testid="cart-section"
+    >
       <BackToCatalog />
-      <h1 className="text-[32px] font-bold mb-2">Your Cart</h1>
-      <p className="text-gray-500 mb-6">{fullGames.length} items</p>
+      <h1
+        id="cart-heading"
+        className="text-[32px] font-bold mb-2"
+        data-testid="cart-title"
+      >
+        Your Cart
+      </h1>
+      <p className="text-gray-500 mb-6" data-testid="cart-count">
+        {fullGames.length} item{fullGames.length !== 1 && "s"}
+      </p>
 
-      <div className="grid mx-6 md:grid-cols-3 gap-10 justify-items-center">
-        <div className="md:col-span-2 flex flex-col gap-6">
+      <div
+        className="grid mx-6 md:grid-cols-3 gap-10 justify-items-center"
+        data-testid="cart-grid"
+      >
+        <div
+          className="md:col-span-2 flex flex-col gap-6"
+          aria-label="Games in your cart"
+          data-testid="cart-games"
+        >
           {fullGames.map((game) => (
-            <Suspense fallback={<p>Loading games in cart...</p>}>
+            <Suspense
+              key={game.id}
+              fallback={
+                <p data-testid={`loading-game-${game.id}`}>
+                  Loading games in cart...
+                </p>
+              }
+            >
               <CartGameCard
-                key={game.id}
                 game={game}
                 onRemove={() => toggleCart(game.id)}
+                data-testid={`cart-game-${game.id}`}
               />
             </Suspense>
           ))}
         </div>
-        <Suspense fallback={<p>Loading summary...</p>}>
-          <OrderSummary games={fullGames} />
+
+        <Suspense
+          fallback={<p data-testid="loading-summary">Loading summary...</p>}
+        >
+          <OrderSummary games={fullGames} data-testid="cart-summary" />
         </Suspense>
       </div>
     </section>
