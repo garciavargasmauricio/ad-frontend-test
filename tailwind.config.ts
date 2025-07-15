@@ -24,7 +24,8 @@ const config: Config = {
         secondary: "#404040",
         accent: "#F97316",
         text: "#3B3B3B",
-        new: "#F5F5F4", // gris oscuro
+        new: "#F5F5F4",
+        button: "#585660",
       },
     },
   },
