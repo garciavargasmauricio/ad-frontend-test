@@ -4,12 +4,10 @@ import { CartProvider } from "@/context/CartContext";
 import Cart from "./Cart";
 import { Game } from "@/utils/endpoint";
 
-// BackToCatalog mock
 jest.mock("@/components/common/BackToCatalog", () => () => (
   <div data-testid="back-to-catalog">Back</div>
 ));
 
-// ✅ Define los mocks como componentes fuera del jest.mock()
 const MockCartGameCard = (props: any) => {
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
@@ -34,7 +32,6 @@ const MockOrderSummary = (props: any) => {
   );
 };
 
-// ⛔️ No accedas directamente a React dentro del jest.mock
 jest.mock("./CartGameCard", () => ({
   __esModule: true,
   default: MockCartGameCard,
@@ -67,7 +64,6 @@ const mockGames: Game[] = [
   },
 ];
 
-// Opcional: Silenciar warning de Suspense en tests
 beforeAll(() => {
   jest.spyOn(console, "error").mockImplementation((msg) => {
     if (
