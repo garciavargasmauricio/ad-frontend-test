@@ -12,28 +12,19 @@ type Params = {
   page?: number;
 };
 
-const isServer = typeof window === "undefined";
-
-const baseUrl = isServer
-  ? process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}/api`
-    : process.env.NEXT_PUBLIC_API_URL // fallback local dev
-  : process.env.NEXT_PUBLIC_API_URL; // always used on client
-
 export async function fetchGames(
   params: Params,
   options?: RequestInit
 ): Promise<GamesResponse> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL!;
+  const url = `${baseUrl}/games?page=${params.page ?? 1}&genre=${
+    params.genre ?? ""
+  }`;
+
   try {
-    const url = `${baseUrl}/games?page=${params.page ?? 1}&genre=${
-      params.genre ?? ""
-    }`;
     const res = await fetch(url, options);
-
     if (!res.ok) throw new Error("Failed to fetch games");
-
-    const data = await res.json();
-    return data;
+    return await res.json();
   } catch (err) {
     console.error("fetchGames error:", err);
     throw err;
