@@ -26,6 +26,8 @@ export default function GameCard({
           alt={game.name}
           className="w-full h-48 object-cover rounded-lg"
           data-testid="game-image"
+          width={320}
+          height={180}
         />
         {game.isNew && (
           <span
