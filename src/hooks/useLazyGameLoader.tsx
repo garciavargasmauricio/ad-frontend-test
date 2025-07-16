@@ -28,7 +28,7 @@ export function useLazyGameLoader(initialGames: Game[], currentPage: number) {
     };
 
     fetchMoreGames();
-  }, [page]);
+  }, [page, currentPage]);
 
   return { loadedGames, page, setPage, loadingMore };
 }

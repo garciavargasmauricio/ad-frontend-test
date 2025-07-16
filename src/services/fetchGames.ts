@@ -16,15 +16,15 @@ export async function fetchGames(
   params: Params,
   options?: RequestInit
 ): Promise<GamesResponse> {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL!;
+  const url = `${baseUrl}/games?page=${params.page ?? 1}&genre=${
+    params.genre ?? ""
+  }`;
+
   try {
-    const res = await fetch(
-      `${baseUrl}/games?page=${params.page}&genre=${params.genre}`,
-      options
-    );
+    const res = await fetch(url, options);
     if (!res.ok) throw new Error("Failed to fetch games");
-    const data = await res.json();
-    return data;
+    return await res.json();
   } catch (err) {
     console.error("fetchGames error:", err);
     throw err;
