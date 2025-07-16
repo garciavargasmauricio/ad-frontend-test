@@ -1,6 +1,16 @@
 import React from "react"; // For testing purposes
 import CartIcon from "../icons/CartIcon";
 
+/**
+ * `Header` component.
+ *
+ * Renders the top-level navigation header for the application.
+ * Includes a link to the homepage with the app title and a link to the cart with a cart icon.
+ * Uses semantic HTML and accessibility attributes.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered header element.
+ */
 export default function Header() {
   return (
     <header

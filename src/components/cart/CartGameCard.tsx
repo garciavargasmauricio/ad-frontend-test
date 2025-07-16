@@ -4,11 +4,28 @@ import React from "react"; // For testing purposes
 import Image from "next/image";
 import { Game } from "@/utils/endpoint";
 
+/**
+ * Props for the `CartGameCard` component.
+ *
+ * @typedef {Object} Props
+ * @property {Game} game - The game object to display in the cart.
+ * @property {(game: Game) => void} onRemove - Callback invoked when removing the game from the cart.
+ */
 type Props = {
   game: Game;
   onRemove: (game: Game) => void;
 };
 
+/**
+ * `CartGameCard` component.
+ *
+ * Displays a single game's information inside the cart view,
+ * including genre, title, description, price, and a remove button.
+ *
+ * @component
+ * @param {Props} props - The props for this component.
+ * @returns {JSX.Element} Rendered game card for the cart.
+ */
 export default function CartGameCard({ game, onRemove }: Props) {
   return (
     <div
@@ -25,6 +42,7 @@ export default function CartGameCard({ game, onRemove }: Props) {
         className="rounded object-cover"
         data-testid="cart-item-image"
       />
+
       <div className="flex-1">
         <p
           className="text-sm text-gray-500 font-bold"
@@ -42,6 +60,7 @@ export default function CartGameCard({ game, onRemove }: Props) {
           {game.description}
         </p>
       </div>
+
       <div className="text-right">
         <button
           onClick={() => onRemove(game)}

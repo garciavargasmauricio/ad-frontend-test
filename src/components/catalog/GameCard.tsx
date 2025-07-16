@@ -4,12 +4,31 @@ import React from "react"; // For testging purposes
 import { Game } from "@/utils/endpoint";
 import Image from "next/image";
 
+/**
+ * Props for the GameCard component.
+ *
+ * @typedef {Object} GameCardProps
+ * @property {Game} game - The game object to display.
+ * @property {boolean} [isInCart] - Indicates whether the game is currently in the cart.
+ * @property {(id: string) => void} onToggleCart - Callback function to toggle the game in the cart.
+ */
 type GameCardProps = {
   game: Game;
   isInCart?: boolean;
   onToggleCart: (id: string) => void;
 };
 
+/**
+ * `GameCard` component.
+ *
+ * Renders an individual game card with an image, name, genre, price, and
+ * a button to add or remove the game from the cart. If the game is new,
+ * a badge is displayed.
+ *
+ * @component
+ * @param {GameCardProps} props - The props for the component.
+ * @returns {JSX.Element} The rendered game card.
+ */
 export default function GameCard({
   game,
   isInCart,

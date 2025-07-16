@@ -18,6 +18,9 @@ export const metadata = {
   description: "Game Catalog",
 };
 
+// Root layout component for the entire application.
+// This wraps all pages with global HTML structure, fonts, and shared components like Header, Footer, and Cart context.
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${archivo.variable} ${inter.className}`}>
+        {/* Provide global cart context to the entire app */}
         <CartProvider>
           <Header />
           {children}

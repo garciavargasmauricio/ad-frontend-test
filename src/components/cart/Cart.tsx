@@ -10,12 +10,40 @@ type Props = {
   games: Game[];
 };
 
+/**
+ * Dynamically imported `OrderSummary` component using React.lazy.
+ */
 const OrderSummary = lazy(() => import("./OrderSummary"));
+
+/**
+ * Dynamically imported `CartGameCard` component using React.lazy.
+ */
 const CartGameCard = lazy(() => import("./CartGameCard"));
 
+/**
+ * Props expected by the `Cart` component.
+ *
+ * @typedef {Object} Props
+ * @property {Game[]} games - List of all available games fetched from the backend.
+ */
+
+/**
+ * Cart page component.
+ *
+ * - Displays the list of games added to the user's cart.
+ * - Allows removing items via context.
+ * - Shows a summary of the current order.
+ *
+ * @component
+ * @param {Props} props - Props containing all games available.
+ * @returns {JSX.Element} The rendered cart page UI.
+ */
 export default function Cart({ games }: Props) {
   const { cart, toggleCart } = useCartContext();
 
+  /**
+   * Filters all games to only include those present in the `cart` context.
+   */
   const fullGames = useMemo(
     () => games.filter((game) => cart.includes(game.id)),
     [games, cart]
@@ -28,6 +56,7 @@ export default function Cart({ games }: Props) {
       data-testid="cart-section"
     >
       <BackToCatalog />
+
       <h1
         id="cart-heading"
         className="text-[32px] font-bold mb-2"
@@ -35,6 +64,7 @@ export default function Cart({ games }: Props) {
       >
         Your Cart
       </h1>
+
       <p className="text-gray-500 mb-6" data-testid="cart-count">
         {fullGames.length} item{fullGames.length !== 1 && "s"}
       </p>

@@ -8,6 +8,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useGenreFilterFromUrl } from "@/hooks/useGenreFilterFromUrl";
 import { useLazyGameLoader } from "@/hooks/useLazyGameLoader";
 
+/**
+ * Props for the GameCatalog component.
+ *
+ * @typedef {Object} CatalogProps
+ * @property {Game[]} games - Initial list of games loaded from the server.
+ * @property {string[]} availableFilters - List of available genres to filter by.
+ * @property {number} totalPages - Total number of pages available for pagination.
+ * @property {number} currentPage - The current page number of the game list.
+ */
 type CatalogProps = {
   games: Game[];
   availableFilters: string[];
@@ -15,6 +24,16 @@ type CatalogProps = {
   currentPage: number;
 };
 
+/**
+ * `GameCatalog` component.
+ *
+ * Displays a list of games with filtering by genre and lazy loading pagination.
+ * Integrates with cart context to toggle games in the cart.
+ *
+ * @component
+ * @param {CatalogProps} props - The props for the component.
+ * @returns {JSX.Element} Rendered catalog UI with filters and game cards.
+ */
 export default function GameCatalog({
   games,
   availableFilters,
@@ -31,6 +50,7 @@ export default function GameCatalog({
     currentPage
   );
 
+  // Filter games by selected genre
   const filteredGames =
     selectedGenre === "all"
       ? loadedGames
@@ -38,11 +58,15 @@ export default function GameCatalog({
           (g) => g.genre.toLowerCase() === selectedGenre.toLowerCase()
         );
 
+  /**
+   * Updates URL query params when genre is changed.
+   * @param {React.ChangeEvent<HTMLSelectElement>} event - The change event from genre select.
+   */
   const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newGenre = event.target.value;
     const params = new URLSearchParams(searchParams.toString());
 
-    // Reset to page 1 on filter change
+    // Reset to page 1 when filter changes
     params.set("page", "1");
 
     if (newGenre === "all") {
@@ -100,9 +124,10 @@ export default function GameCatalog({
           </select>
         </fieldset>
       </section>
+
       <div
         data-testid="game-list"
-        className=" max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto py-6 justify-items-center"
+        className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-6 justify-items-center"
       >
         {filteredGames.length ? (
           filteredGames.map((game) => (
@@ -117,7 +142,7 @@ export default function GameCatalog({
           <div>There are no games available in this genre.</div>
         )}
       </div>
-      {/* Lazy loading button */}
+
       {page < totalPages && (
         <div className="max-w-[1200px] mx-auto px-4 py-6">
           <button

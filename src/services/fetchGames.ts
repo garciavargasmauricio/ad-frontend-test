@@ -12,6 +12,24 @@ type Params = {
   page?: number;
 };
 
+/**
+ * Fetches games from the API with optional genre filter and pagination.
+ *
+ * This function communicates with the backend API defined by the `NEXT_PUBLIC_API_URL`
+ * environment variable and returns the games along with pagination and filter metadata.
+ *
+ * @param {Params} params - Parameters for filtering and pagination.
+ * @param {string} [params.genre] - Optional genre to filter games.
+ * @param {number} [params.page=1] - Optional page number for pagination.
+ * @param {RequestInit} [options] - Optional fetch options (e.g., headers, cache settings).
+ *
+ * @returns {Promise<GamesResponse>} A promise that resolves to the response object containing games and metadata.
+ *
+ * @throws {Error} Throws if the request fails or the response is not OK.
+ *
+ * @example
+ * const { games, totalPages } = await fetchGames({ genre: "action", page: 2 });
+ */
 export async function fetchGames(
   params: Params,
   options?: RequestInit

@@ -3,10 +3,27 @@
 import React from "react"; // For testing purposes
 import { Game } from "@/utils/endpoint";
 
+/**
+ * Props for the `OrderSummary` component.
+ *
+ * @typedef {Object} Props
+ * @property {Game[]} games - An array of games currently in the cart.
+ */
 type Props = {
   games: Game[];
 };
 
+/**
+ * `OrderSummary` component.
+ *
+ * Displays a summary of the games in the cart, including the total number
+ * of items, individual game prices, and the order total. Also provides
+ * a checkout button.
+ *
+ * @component
+ * @param {Props} props - The component props.
+ * @returns {JSX.Element} Rendered order summary.
+ */
 export default function OrderSummary({ games }: Props) {
   const total = games.reduce((acc, g) => acc + g.price, 0);
 
@@ -25,7 +42,6 @@ export default function OrderSummary({ games }: Props) {
         >
           Order Summary
         </h2>
-
         <p
           className="mb-4 text-sm text-gray-500"
           data-testid="order-summary-count"

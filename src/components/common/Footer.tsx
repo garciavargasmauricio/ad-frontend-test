@@ -1,6 +1,15 @@
 import React from "react"; // For testing purposes
 import LogoIcon from "../icons/Logo";
 
+/**
+ * `Footer` component.
+ *
+ * Renders the application footer, including a logo that links back to the home page.
+ * It uses semantic HTML elements and accessibility roles for screen readers.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered footer element.
+ */
 export default function Footer() {
   return (
     <footer
