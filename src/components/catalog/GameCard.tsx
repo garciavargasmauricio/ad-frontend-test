@@ -2,6 +2,7 @@
 
 import React from "react"; // For testging purposes
 import { Game } from "@/utils/endpoint";
+import Image from "next/image";
 
 type GameCardProps = {
   game: Game;
@@ -20,7 +21,7 @@ export default function GameCard({
       data-testid={`game-card-${game.id}`}
     >
       <div className="relative">
-        <img
+        <Image
           src={game.image}
           alt={game.name}
           className="w-full h-48 object-cover rounded-lg"
